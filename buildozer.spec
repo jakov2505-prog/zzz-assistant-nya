@@ -5,12 +5,13 @@ package.domain = org.yakov.zzzai
 source.dir = .
 source.include_exts = py,png,jpg,kv
 version = 1.0.0
-requirements = python3,kivy,requests,urllib3,idna,certifi,charset-normalizer
+requirements = python3,kivy,requests
 orientation = portrait
 fullscreen = 0
 android.permissions = SYSTEM_ALERT_WINDOW, INTERNET, FOREGROUND_SERVICE, WAKE_LOCK
 android.api = 33
 android.ndk = 25b
+android.ndk_path = /home/runner/.buildozer/android/platform/android-ndk-r25b
 android.minapi = 21
 android.accept_sdk_license = True
 

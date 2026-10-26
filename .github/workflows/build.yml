@@ -24,6 +24,7 @@ jobs:
           
       - name: Build APK with Buildozer
         run: |
+          export ANDROID_NDK="/home/runner/.buildozer/android/platform/android-ndk-r25b"
           buildozer -v android debug
           
       - name: Upload APK Artifact

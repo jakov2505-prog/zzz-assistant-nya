@@ -8,25 +8,17 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build with Buildozer
+        uses: kivy/buildozer-action@v1
         with:
-          python-version: '3.10'
-          
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential git libltdl-dev libffi-dev libssl-dev python3-pip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev
-          pip install --upgrade pip
-          pip install buildozer kivy requests
-          
-      - name: Build APK with Buildozer
-        run: |
-          export ANDROID_NDK="/home/runner/.buildozer/android/platform/android-ndk-r25b"
-          buildozer -v android debug
-          
+          filename: buildozer.spec
+          android_ndk: 25b
+        env:
+          ALLOW_ROOT: true
+
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:

@@ -37,7 +37,13 @@ jobs:
         env:
           ALLOW_ROOT: "1"
         run: |
-          buildozer -v android debug
+          # Экспортируем и перезаписываем переменные окружения "на лету" перед запуском buildozer
+          export ANDROID_NDK="/home/runner/.buildozer/android/platform/android-ndk-r25b"
+          export ANDROID_NDK_HOME="/home/runner/.buildozer/android/platform/android-ndk-r25b"
+          export ANDROID_NDK_ROOT="/home/runner/.buildozer/android/platform/android-ndk-r25b"
+          
+          # Запускаем сборку с принудительной передачей путей
+          MAKEFLAGS="-j1" buildozer -v android debug
           
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4

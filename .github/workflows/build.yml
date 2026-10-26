@@ -15,19 +15,29 @@ jobs:
         with:
           python-version: '3.10'
           
-      - name: Install dependencies
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential ccache git libltdl-dev libffi-dev libssl-dev python3-pip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev patch unzip libncurses5:i386 libstdc++6:i386 libz1:i386
-          pip install --upgrade pip
-          pip install buildozer kivy requests
+          sudo apt-get install -y \
+            build-essential git zip unzip autoconf libtool pkg-config \
+            zlib1g-dev libncurses5-dev libstdc++6 gettext libffi-dev libssl-dev
           
-      - name: Build APK with Buildozer
-        env:
-          ANDROID_NDK: /home/runner/.buildozer/android/platform/android-ndk-r25b
-          ANDROID_NDK_HOME: /home/runner/.buildozer/android/platform/android-ndk-r25b
+      - name: Install Python build tools
         run: |
-          MAKEFLAGS="-j1" buildozer -v android debug
+          pip install --upgrade pip
+          pip install --upgrade cython==0.29.36 buildozer kivy requests
+
+      - name: Run Buildozer Build
+        env:
+          ALLOW_ROOT: "1"
+        run: |
+          buildozer -v android debug
           
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4

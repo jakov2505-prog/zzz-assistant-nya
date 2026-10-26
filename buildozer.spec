@@ -1,15 +1,14 @@
 [app]
-
 title = ZZZ Floating Assistant
 package.name = zzzai
 package.domain = org.yakov.zzzai
 source.dir = .
 source.include_exts = py,png,jpg,kv
 version = 1.0.0
-requirements = python3,kivy
+requirements = python3,kivy,requests,urllib3,idna,certifi,charset-normalizer
 orientation = portrait
 fullscreen = 0
-android.permissions = SYSTEM_ALERT_WINDOW, INTERNET, FOREGROUND_SERVICE
+android.permissions = SYSTEM_ALERT_WINDOW, INTERNET, FOREGROUND_SERVICE, WAKE_LOCK
 android.api = 33
 android.ndk = 25b
 android.minapi = 21
